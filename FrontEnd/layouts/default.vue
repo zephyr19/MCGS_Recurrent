@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <Nuxt />
+  <div id="app">
+    <div class="header"><i class="el-icon-share"></i> Graph Sampling</div>
+    <Nuxt class="nuxt" />
   </div>
 </template>
 
@@ -22,6 +23,26 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+
+#app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  width: 100%;
+  background-color: #ccc;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+  color: white;
+  padding-left: 10px;
+}
+
+.nuxt {
+  height: calc(100% - 50px);
+  overflow: hidden;
 }
 
 .button--green {
