@@ -66,3 +66,27 @@ class JSON_Generator():
             json_text = json_fp.read()
         with open(json_output_path, 'w', encoding='utf-8')as json_fp:
             json_fp.write(json_text[1:-1].replace("\\", ""))
+
+        with open(json_output_path,'r') as load_f:
+            data = json.load(load_f)
+
+            nodes = data['nodes']
+            nodes_new = [{'id': node['id'][3:]} for node in nodes]
+            # print(nodes_new)
+
+
+            links = data['links']
+            links_new = [{
+                'source': nodes_new[link['source']]['id'],
+                'target': nodes_new[link['target']]['id'],
+            } for link in links]
+
+            # print(links_new)
+
+        data_new = {
+            'nodes': nodes_new,
+            'links': links_new
+        }
+
+        return data_new
+

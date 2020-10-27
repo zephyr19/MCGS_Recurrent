@@ -2,15 +2,13 @@
   <div>
     <panel class="panel" />
     <graph class="graph" />
-    <!-- <div id="3d-graph" class="home"></div> -->
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import ForceGraph3D from '3d-force-graph'
-import Panel from '../components/Panel/index.vue'
-import Graph from '../components/Graph/index.vue'
+import { Component, Vue } from "vue-property-decorator";
+import Panel from "../components/Panel/index.vue";
+import Graph from "../components/Graph/index.vue";
 
 @Component({
   components: {
@@ -18,17 +16,7 @@ import Graph from '../components/Graph/index.vue'
     Graph
   }
 })
-export default class Home extends Vue {
-  name = 'Home'
-  data() {
-    return {}
-  }
-  mounted() {
-    const elem = document.getElementById('3d-graph')
-
-    const Graph = ForceGraph3D()(elem!).jsonUrl('data/cpan.json')
-  }
-}
+export default class Home extends Vue {}
 </script>
 
 <style scoped>
@@ -37,6 +25,7 @@ export default class Home extends Vue {
 }
 
 .graph {
-  height: calc(100% - 60px - 30px);
+  height: calc(100% - 60px - 45px);
+  overflow: hidden;
 }
 </style>

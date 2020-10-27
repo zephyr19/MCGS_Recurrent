@@ -7,10 +7,10 @@ Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   state: {
-    dataset: "",
-    algorithm: "",
+    dataset: "Cpan",
+    algorithm: "BF",
     params: {
-      rate: "",
+      rate: "0.3",
       alpha: "1",
       beta: "2",
       "loss weight": "1,0,0"
@@ -19,7 +19,9 @@ const store: StoreOptions<RootState> = {
     // Origin Component
     originLoading: false,
     anomalyTotal: {},
-    graphRecord: {}
+    graphRecord: {},
+
+    sampleLoading: false,
   },
 
   mutations: {
@@ -43,11 +45,17 @@ const store: StoreOptions<RootState> = {
     },
     SET_ORIGINLOADING(state, value) {
       state.originLoading = value;
+    },
+    SET_SAMPLELOADING(state, value) {
+      state.sampleLoading = value;
     }
   },
   actions: {
     setDataset({ commit }, val) {
-      commit("SET_DATASET", val)
+      commit("SET_DATASET", val);
+    },
+    setSampleLoading({ commit }, val) {
+      commit("SET_SAMPLELOADING", val);
     },
     clearAlgorithmSettings({ commit }) {
       commit("SET_ALGORITHM", "");
@@ -74,7 +82,8 @@ const store: StoreOptions<RootState> = {
     checkParams(state) {
       console.log("Checking params");
       if (!state.dataset) {
-        // this.$message('这是一条消息提示');
+        console.log("No dataset")
+        return { message: 'Please select Graph Data Set' }
       }
     }
   },

@@ -13,8 +13,18 @@ interface GraphInfoParams {
   graphName: string;
 }
 
+interface SamplingParams {
+  graphName: string;
+  algorithm: string;
+  params: object;
+}
+
 export default {
   getGraphInfo(params: GraphInfoParams) {
     return apiClient.post("/getGraphInfo/", params);
+  },
+
+  runSampling(params: SamplingParams) {
+    return apiClient.post("/runSampling/", params);
   }
 };

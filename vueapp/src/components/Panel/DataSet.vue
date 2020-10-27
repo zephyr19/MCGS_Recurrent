@@ -17,34 +17,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class';
-import Basic from './basic.vue'
+import { Component, Vue } from "vue-property-decorator";
+import { State, Action, Getter } from "vuex-class";
+import Basic from "./basic.vue";
 
 @Component({
   components: {
     Basic
   }
 })
-
 export default class DataSet extends Vue {
-  datasetList = ['Cagrqc', 'Cpan', 'Eurosis']
-  @State('dataset') datasetVuex!: string
-  @Action('setDataset') setDataset!: Function
-  @Action('clearAlgorithmSettings') clearAlgorithmSettings!: Function
-  @Action('getGraphInfo') getGraphInfo!: Function
+  datasetList = ["Cagrqc", "Cpan", "Eurosis"];
+  @State("dataset") datasetVuex!: string;
+  @Action("setDataset") setDataset!: Function;
+  @Action("clearAlgorithmSettings") clearAlgorithmSettings!: Function;
+  @Action("getGraphInfo") getGraphInfo!: Function;
 
   get dataset(): string {
-    return this.datasetVuex
-    }
+    return this.datasetVuex;
+  }
 
   set dataset(value: string) {
-this.setDataset(value)
-    }
-    initOriginGraph() {
-this.clearAlgorithmSettings()
-this.getGraphInfo()
-    }
+    this.setDataset(value);
+  }
+
+  initOriginGraph() {
+    this.clearAlgorithmSettings();
+    this.getGraphInfo();
+  }
 }
 </script>
 

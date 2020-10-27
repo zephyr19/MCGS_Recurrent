@@ -23,34 +23,34 @@
 </template>
 
 <script>
-import basic from './basic.vue'
+import basic from "./basic.vue";
 
 export default {
-  name: 'Params',
+  name: "Params",
   components: {
-    basic,
+    basic
   },
   data() {
     return {
-      datasetList: ['Cagrqc', 'Cpan', 'Eurosis'],
-    }
+      datasetList: ["Cagrqc", "Cpan", "Eurosis"]
+    };
   },
   computed: {
     rate: {
       get() {
-        return this.$store.state.params['rate']
+        return this.$store.state.params["rate"];
       },
       set(value) {
-        this.$store.commit('SET_PARAMS', { key: 'rate', value: value })
-      },
-    },
-    optionLabels() {
-      if (this.$store.state.algorithm == 'MCGS') {
-        return ['alpha', 'beta', 'loss weight']
-      } else {
-        return []
+        this.$store.commit("SET_PARAMS", { key: "rate", value: value });
       }
     },
+    optionLabels() {
+      if (this.$store.state.algorithm == "MCGS") {
+        return ["alpha", "beta", "loss weight"];
+      } else {
+        return [];
+      }
+    }
     // 'params[option]': {
 
     // },
@@ -59,8 +59,8 @@ export default {
     //     this.$store.state.params[]
     //   }
     // }
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>

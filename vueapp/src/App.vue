@@ -1,15 +1,23 @@
 <template>
   <div id="app">
-    <router-view />
+    <div class="header"><i class="el-icon-share"></i> Graph Sampling</div>
+    <router-view class="vue" />
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.header {
+  width: calc(100% - 10px);
+  background-color: #ccc;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+  color: white;
+  padding-left: 10px;
+}
+
+.vue {
+  height: calc(100vh - 50px - 16px);
+  overflow: hidden;
 }
 </style>

@@ -10,6 +10,7 @@
     <span class="origin-tip" v-show="dataset === ''"
       >please select graph data set</span
     >
+    <div id="3d-graph-origin"></div>
 
     <!-- <div
       role="tooltip"
@@ -25,30 +26,37 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-// import ForceGraph3D from '3d-force-graph'
+import { mapState } from "vuex";
+import ForceGraph3D from "3d-force-graph";
 
 export default {
   data() {
-    return {}
+    return {};
   },
   computed: {
-    ...mapState(['dataset', 'originLoading', 'graphRecord']),
-    originFisheyeFile() {
-      return `json_files/origin_${this.dataset.toLowerCase()}.json`
-    },
+    ...mapState(["dataset", "originLoading", "graphRecord"]),
     origin3DFile() {
-      return `json_files/cpan.json`
-    },
-    samplingFisheyeFile() {
-      return 'json_files/sampling_result.json'
-    },
+      return `data/${this.dataset.toLowerCase()}.json`;
+    }
   },
-  methods: {
-  },
+  methods: {},
   watch: {
-  },
-}
+    originLoading(newValue) {
+      if (newValue) {
+        const elemOrigin = document.getElementById("origin");
+        const elem = document.getElementById("3d-graph-origin");
+        const Graph = ForceGraph3D()(elem)
+          .jsonUrl(this.origin3DFile)
+          .width(elem.clientWidth)
+          .height(elemOrigin.clientHeight - 40)
+          .backgroundColor("white")
+          .nodeAutoColorBy("id")
+          .linkColor("#ccc");
+        this.$store.commit("SET_ORIGINLOADING", false);
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -59,6 +67,7 @@ export default {
 .origin-header {
   display: flex;
   justify-content: space-between;
+  line-height: 20px;
 }
 
 .origin-tip {

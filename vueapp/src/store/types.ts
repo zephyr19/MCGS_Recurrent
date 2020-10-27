@@ -13,4 +13,5 @@ export interface RootState {
   originLoading: boolean;
   anomalyTotal: object;
   graphRecord: object;
+  sampleLoading: boolean;
 }

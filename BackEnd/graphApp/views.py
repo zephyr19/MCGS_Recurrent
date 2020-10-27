@@ -11,7 +11,7 @@ from utils.minority_structure_detection import Classic_Model
 # Create your views here.
 def getGraphInfo(request):
     parameters = json.loads(request.body)
-    graph_name = parameters['graph_name']
+    graph_name = parameters['graphName']
     G = loadGraph(graph_name)
     classic_model = Classic_Model(G)
     anomaly_total = classic_model.anomaly_total
@@ -27,17 +27,19 @@ def getGraphInfo(request):
 
 def runSampling(request):
     parameters = json.loads(request.body)
-    graph_name = parameters['graph_name']
-    algorithm_name = parameters['algorithm_name']
+    graph_name = parameters['graphName']
+    algorithm_name = parameters['algorithm']
     float_param_settings = {
-        'rate': float(parameters['param_settings']['rate']),
-        'alpha': float(parameters['param_settings']['alpha']),
-        'beta': float(parameters['param_settings']['beta']),
+        'rate': float(parameters['params']['rate']),
+        'alpha': float(parameters['params']['alpha']),
+        'beta': float(parameters['params']['beta']),
         'loss weight': list(float(_) for _ in re.findall('([0-9]*\.{0,1}[0-9]*)',
                                                          parameters[
-                                                             'param_settings'][
+                                                             'params'][
                                                              'loss weight'])[::2])
     }
+
+    print(parameters)
 
     run_model = Run_Sampling_Model(graph_name, algorithm_name, float_param_settings)
     Gs = run_model.run()
@@ -81,14 +83,9 @@ def runSampling(request):
 
     # 保存svg开发环境下
     # with open(os.path.join(settings.BASE_DIR,
-    #                        'frontend/public/static/sampling_result.svg'), 'w',
+    #                        'frontend_dist/static/sampling_result.svg'), 'w',
     #           encoding='utf-8')as fp:
     #     fp.write(sampling_svg_content)
-    # 部署环境下
-    with open(os.path.join(settings.BASE_DIR,
-                           'frontend_dist/static/sampling_result.svg'), 'w',
-              encoding='utf-8')as fp:
-        fp.write(sampling_svg_content)
 
     # 将svg文件转化为json文件(辅助鱼眼特效)
     generator = JSON_Generator()
@@ -96,7 +93,7 @@ def runSampling(request):
                                    'frontend_dist/static/sampling_result.svg')
     target_json_path = os.path.join(settings.BASE_DIR,
                                     'frontend_dist/static/sampling_result.json')
-    generator.convertion(source_svg_path, target_json_path)
+    graph_data = generator.convertion(source_svg_path, target_json_path)
 
     classic_model = Classic_Model(Gs)
     anomaly_total = classic_model.anomaly_total
@@ -104,11 +101,11 @@ def runSampling(request):
     graph_record = {
         'node_num': len(Gs.nodes()),
         'edge_num': len(Gs.edges()),
-        'minority': anomaly_total
+        'minority': anomaly_total,
     }
 
     return HttpResponse(
-        json.dumps({'state': "success", 'graph_record': graph_record}),
+        json.dumps({'state': "success", 'graph_record': graph_record, 'graph_data': graph_data}),
         content_type='application/json')
 
 
