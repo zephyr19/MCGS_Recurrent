@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
-import { RootState } from "./types";
+import { ParamsValue, RootState } from "./types";
 import api from "../api/index";
 
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   state: {
-    dataset: "Cpan",
+    dataset: "Cagrqc",
     algorithm: "BF",
     params: {
       rate: "0.3",
@@ -34,7 +34,7 @@ const store: StoreOptions<RootState> = {
     INIT_PARAMS(state, o) {
       state.params = o;
     },
-    SET_PARAMS(state, o) {
+    SET_PARAMS(state, o: ParamsValue) {
       state.params[o.key] = o.value;
     },
     SET_ANOMALY(state, value) {

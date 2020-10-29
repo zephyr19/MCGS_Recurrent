@@ -6,15 +6,15 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ForceGraph3D from "3d-force-graph";
 
-// interface GraphData = {
-//   nodes: Array<>,
-//   links: Array<>
-// }
+interface GraphData {
+  nodes: Array<any>;
+  links: Array<any>;
+}
 
 @Component
 export default class SampleItem extends Vue {
   @Prop(String) readonly id!: string;
-  @Prop(Object) readonly graphData!: object;
+  @Prop(Object) readonly graphData!: GraphData;
   mounted() {
     console.log("SampleItem say hi");
     const elem = document.getElementById(this.id);

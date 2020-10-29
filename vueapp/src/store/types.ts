@@ -15,3 +15,8 @@ export interface RootState {
   graphRecord: object;
   sampleLoading: boolean;
 }
+
+export interface ParamsValue {
+  key: 'rate' | 'alpha' | 'beta' | 'loss weight',
+  value: string
+}

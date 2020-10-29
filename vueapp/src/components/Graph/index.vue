@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import Origin from './Origin.vue'
-import Sample from './Sample.vue'
+import Origin from "./Origin.vue";
+import Sample from "./Sample.vue";
 
 export default {
-  name: 'Graph',
+  name: "Graph",
   components: {
     Origin,
-    Sample,
-  },
-}
+    Sample
+  }
+};
 </script>
 
 <style lang="scss" scoped>

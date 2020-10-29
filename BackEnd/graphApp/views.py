@@ -7,6 +7,7 @@ import networkx as nx
 from utils.sampling_program import Run_Sampling_Model
 from utils.json_generator import JSON_Generator
 from utils.minority_structure_detection import Classic_Model
+import community as community_louvain
 
 # Create your views here.
 def getGraphInfo(request):
@@ -46,6 +47,39 @@ def runSampling(request):
     Gs_nodes = set(list(_ for _ in Gs.nodes()))
     Gs_edges = set(list(_ for _ in Gs.edges()))
 
+    classic_model = Classic_Model(Gs)
+    anomaly_total = classic_model.anomaly_total
+
+    graph_record = {
+        'node_num': len(Gs.nodes()),
+        'edge_num': len(Gs.edges()),
+        'minority': anomaly_total,
+    }
+
+    partition = community_louvain.best_partition(Gs)
+    # print(partition)
+    formatNodes = [{
+        "id": str(item[0]),
+        "group": str(item[1]),
+    } for item in partition.items()]
+
+    formatEdges = [{
+        "source": str(edge[0]),
+        "target": str(edge[1]),
+    } for edge in Gs_edges]
+
+    graph_data = {
+        'nodes': formatNodes,
+        'edges': formatEdges
+    }
+
+    return HttpResponse(
+        json.dumps({'state': "success", 'graph_record': graph_record, 'graph_data': graph_data}),
+        content_type='application/json')
+
+
+
+def not_used():
     # # # 重写采样svg文件
     # # 获取svg头信息
     with open(

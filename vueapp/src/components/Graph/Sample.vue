@@ -4,13 +4,20 @@
       >Graph Samples {{ graphRecord.node_num }}</span
     >
     <div class="sample-item-box">
-      <sample-item
+      <!-- <sample-item
         v-for="i in sampleNum"
         :key="i"
         class="sample-item"
         :id="`sample${i}`"
         :graphData="graphData"
-      ></sample-item>
+      ></sample-item> -->
+      <sample-g6
+        v-for="i in sampleNum"
+        :key="i"
+        class="sample-item"
+        :id="`sample${i}`"
+        :graphData="graphData"
+      />
     </div>
     <i
       class="el-icon el-icon-arrow-left arrow-icon"
@@ -43,10 +50,12 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Action, Getter } from "vuex-class";
 import api from "../../api/index";
 import SampleItem from "./SampleItem.vue";
+import SampleG6 from "./SampleG6.vue";
 
 @Component({
   components: {
-    SampleItem
+    SampleItem,
+    SampleG6
   }
 })
 export default class Sample extends Vue {
@@ -75,7 +84,6 @@ export default class Sample extends Vue {
           this.graphRecord = res.data.graph_record;
           this.graphData = res.data.graph_data;
           this.sampleNum++;
-          console.log(this.graphData);
         });
       this.setSampleLoading(false);
     }
