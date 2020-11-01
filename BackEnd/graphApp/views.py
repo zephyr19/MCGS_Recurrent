@@ -28,7 +28,7 @@ def getGraphInfo(request):
 
 def runSampling(request):
     parameters = json.loads(request.body)
-    graph_name = parameters['graphName']
+    graph_name = parameters['graph']
     algorithm_name = parameters['algorithm']
     float_param_settings = {
         'rate': float(parameters['params']['rate']),
